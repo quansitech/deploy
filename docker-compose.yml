@@ -1,0 +1,62 @@
+version: '3.5'
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+    baite:
+      image: 镜像地址 test
+      container_name: test
+      volumes:
+        - ./web/.env:/var/www/.env
+      networks:
+        - backend
+
+    mysql:
+      image: 镜像地址 mysql:5.7
+      container_name: mysql
+      restart: always
+      environment:
+        - MYSQL_DATABASE=default
+        - MYSQL_USER=test
+        - MYSQL_PASSWORD=secret
+        - MYSQL_ROOT_PASSWORD=root
+      volumes:
+        - ./mysql-data:/var/lib/mysql
+      ports:
+        - "3306:3306"
+      networks:
+        - backend
+
+    php-fpm:
+      image: 镜像地址 php-fpm:7.2
+      container_name: php-fpm
+      user: 1000:1000
+      restart: always
+      volumes:
+        - /var/www:/var/www #/var/www 为源码从容器copy出来后存放在宿主机上的路径
+        - ./web/.env:/var/www/.env
+        - ./web/Uploads:/var/www/www/Uploads #Uploads为需要持久化的图片上传地址
+      ports:
+        - "9000:9000"
+      networks:
+        - backend
+
+    nginx:
+      image: 镜像地址 nginx
+      container_name: nginx
+      restart: always
+      volumes:
+        - ./nginx/sites:/etc/nginx/sites-available
+        - ./nginx/ssl:/etc/nginx/ssl
+        - /var/www:/var/www #/var/www 为源码从容器copy出来后存放在宿主机上的路径
+        - ./web/.env:/var/www/.env 
+        - ./web/Uploads:/var/www/www/Uploads #Uploads为需要持久化的图片上传地址
+      ports:
+        - "80:80"
+        - "443:443"
+      depends_on:
+        - php-fpm
+      networks:
+        - backend
