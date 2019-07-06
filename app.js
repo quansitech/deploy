@@ -9,7 +9,7 @@ app.post('/****', function(req, res) {
     //接收post信息，验证请求信息，请求时间
 
     //验证通过做镜像更新，docker容器登录（登录的密码建议放入环境变量），拉取最新镜像，启动镜像，复制镜像源码至宿主机
-    var cmd = 'cd /mnt/docker-script && docker login --username $DOCKER_USER --password $DOCKER_PWD registry.cn-shenzhen.aliyuncs.com && docker-compose pull test && docker-compose up test && docker cp test:/var/www /var';
+    var cmd = 'cd /mnt/docker-script && docker login --username $DOCKER_USER --password $DOCKER_PWD registry.cn-shenzhen.aliyuncs.com && docker-compose pull test && docker-compose up test && docker cp test:/var/www /var && rm -rf /var/www/app/Runtime/*';
     exec(cmd, function(err, stdout) {
         if (err) {
         console.error(err);
