@@ -36,7 +36,7 @@ services:
       restart: always
       volumes:
         - /var/www:/var/www #/var/www 为源码从容器copy出来后存放在宿主机上的路径
-        - ./web/.env:/var/www/.env
+        - ./web/.env:/var/www/.env  #注意： docker直接挂载文件是将文件的inode挂载进容器，像vi之类的修改，是新建文件再将源文件替代，新文件的inode会和原来的不一致，导致容器里的文件无法与宿主同步，需要重启容器才能看到新的文件内容
         - ./web/Uploads:/var/www/www/Uploads #Uploads为需要持久化的图片上传地址
       ports:
         - "9000:9000"
