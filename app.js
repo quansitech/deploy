@@ -5,11 +5,11 @@ var exec = require('child_process').exec;
 var app = express();
 
 //可自己定义一个不太容易被猜到的路径
-app.post('/****', function(req, res) {
+app.post('/自定义随机码', function(req, res) {
     //接收post信息，验证请求信息，请求时间
 
     //验证通过做镜像更新，docker容器登录（登录的密码建议放入环境变量），拉取最新镜像，启动镜像，复制镜像源码至宿主机
-    var cmd = 'cd /mnt/docker-script && docker login --username $DOCKER_USER --password $DOCKER_PWD registry.cn-shenzhen.aliyuncs.com && docker-compose pull test && docker-compose up test && docker cp test:/var/www /var && rm -rf /var/www/app/Runtime/*';
+    var cmd = 'cd /mnt/docker-script && docker login --username 容器账号 --password 容器密码 registry.cn-shenzhen.aliyuncs.com && docker-compose pull 镜像名 && docker-compose up 镜像名 && docker cp 镜像名:/var/www/项目名 /mnt/www && rm -rf /mnt/www/项目名/app/Runtime/*';
     exec(cmd, function(err, stdout) {
         if (err) {
         console.error(err);
