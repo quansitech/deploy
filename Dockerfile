@@ -10,6 +10,8 @@ RUN cd /var/www/项目名 \
            --prefer-dist \
            --no-dev
 
+RUN cd /var/www/wish/app/Runtime && rm -rf *
+
 FROM php:7.2-fpm-alpine as project
 
 USER root
