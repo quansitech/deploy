@@ -9,7 +9,7 @@ services:
       image: 镜像地址 test
       container_name: test
       #这里可以根据源码是否含有Uploads决定是否要执行删除操作
-      command: sh -c "php /var/www/项目名/artisan migrate --force && rm -rf /var/www/swupl-alumni/www/Uploads && ln -s /mnt/docker-script/web/Uploads /var/www/swupl-alumni/www/Uploads"
+      command: sh -c "php /var/www/项目名/artisan migrate --force && rm -rf /var/www/项目名/www/Uploads && ln -s /mnt/docker-script/web/Uploads /var/www/项目名/www/Uploads"
       volumes:
         - ./web/.env:/var/www/.env
         #上传文件需要持久化，必须和代码分开，采用软连接的方式，可避免在清空源码时导致的docker 映射文件的inode丢失，避免docker重启
