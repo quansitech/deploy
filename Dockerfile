@@ -23,5 +23,3 @@ COPY --from=composer /var/www/项目名 /var/www/项目名
 RUN docker-php-ext-install pdo_mysql
 
 RUN chown -R www-data:www-data /var/www/项目名
-
-CMD php /var/www/项目名/artisan migrate --force
