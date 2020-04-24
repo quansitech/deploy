@@ -9,7 +9,7 @@ app.post('/自定义随机码', function(req, res) {
     //接收post信息，验证请求信息，请求时间
 
     //验证通过做镜像更新，docker容器登录（登录的密码建议放入环境变量），拉取最新镜像，启动镜像，复制镜像源码至宿主机
-    var cmd = 'cd /mnt/docker-script && docker login --username 容器账号 --password 容器密码 registry.cn-shenzhen.aliyuncs.com && docker-compose pull 镜像名 && docker-compose up 镜像名 && docker cp 镜像名:/var/www/项目名 /mnt/www/tmp && rm -rf /mnt/www/项目名 && mv /mnt/www/tmp /mnt/www/项目名 && docker-compose restart php-fpm nginx';
+    var cmd = 'cd /mnt/docker-script && docker login --username 容器账号 --password 容器密码 registry.cn-shenzhen.aliyuncs.com && docker-compose pull 镜像名 && docker-compose up 镜像名 && docker cp 镜像名:/var/www/项目名 /mnt/www/tmp && rm -rf /mnt/www/项目名 && mv /mnt/www/tmp /mnt/www/项目名';
     exec(cmd, function(err, stdout) {
         if (err) {
         console.error(err);
