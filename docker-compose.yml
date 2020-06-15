@@ -39,7 +39,7 @@ services:
       user: 1000:1000
       restart: always
       volumes:
-        - /var/www:/var/www #/var/www 为源码从容器copy出来后存放在宿主机上的路径
+        - /mnt/www:/var/www #/mnt/www 为源码从容器copy出来后存放在宿主机上的路径
         - ./php-fpm/conf.d/php-fpm.ini:/usr/local/etc/php/conf.d/php-fpm.ini
         - ./web:/mnt/docker-script/web #持久化文件存放目录
       ports:
