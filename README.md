@@ -143,8 +143,15 @@
     安装express包，使用源码里的package.json，执行npm install进行包安装。源码里的app.js是webhook启动文件。
 
 + 安装supervisor
+
+  ubuntu
   ```
   $ sudo apt-get install supervisor
+  ```
+  
+  centos
+  ```
+  $ sudo yum install supervisor
   ```
 
   配置supervisor webhook守护进程
