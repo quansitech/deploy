@@ -11,10 +11,10 @@
 
 可参考docker-compose.yml和app.js(基于node的webhook服务)理解相关部署思路。
 
-### 操作步骤(Ubuntu)
+### 操作步骤
 以下设计仓库源码的使用，都需要按自己的需要，根据源码的注释提示做相应修改，否则无法运行成功。
 
-+ 安装docker
++ 安装docker(ubuntu)
 
     卸载旧docker
     ```
@@ -47,6 +47,46 @@
 
     $ sudo apt-get install docker-ce
     ```
+  
++ 安装docker(centos)
+    
+    卸载旧docker
+    ```
+    $ sudo yum remove docker \
+                      docker-client \
+                      docker-client-latest \
+                      docker-common \
+                      docker-latest \
+                      docker-latest-logrotate \
+                      docker-logrotate \
+                      docker-selinux \
+                      docker-engine-selinux \
+                      docker-engine
+    ```
+  
+    yum安装
+    ```
+    $ sudo yum install -y yum-utils \
+               device-mapper-persistent-data \
+               lvm2
+    ```
+  
+    执行下面的命令添加 yum 软件源
+    ```
+    $ sudo yum-config-manager \
+        --add-repo \
+        https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo
+    
+    $ sudo sed -i 's/download.docker.com/mirrors.ustc.edu.cn\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
+    ```
+  
+    安装 Docker CE
+    ```
+    $ sudo yum makecache fast
+    $ sudo yum install docker-ce
+    ```
+  
++ 添加docker用户组
 
     建立 docker 用户组，将uid为1000的用户加入docker用户组，可查看etc/passwd uid 1000对应的账户,如果没有自行新增
     ```
@@ -63,10 +103,18 @@
 
 + 安装node和npm
 
+    ubuntu
     ```
     $ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 
     $ sudo apt-get install nodejs
+    ```
+  
+    centos
+    ```
+    $ sudo yum install epel-release
+    $ curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -
+    $ sudo yum install -y nodejs
     ```
 
     配置npm仓库
