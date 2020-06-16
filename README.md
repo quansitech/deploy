@@ -86,6 +86,12 @@
     $ sudo yum install docker-ce
     ```
   
+    启动 docker CE
+    ```
+    $ sudo systemctl enable docker
+    $ sudo systemctl start docker
+    ```
+  
 + 添加docker用户组
 
     建立 docker 用户组，将uid为1000的用户加入docker用户组，可查看etc/passwd uid 1000对应的账户,如果没有自行新增
